@@ -9,7 +9,7 @@ A partial emulation of the Metronome billing API that passes internal tests we h
 - ✅ **Credit Bridging Logic**: Mirrors Metronome's behavior for recurring credits, cancel/un-cancel flows, and next-period credit creation
 - ✅ **Webhook Dispatch**: Emits contract/payment/alert events and supports manual webhook triggering
 - ✅ **Usage Ingestion**: Accept and store usage events
-- ✅ **Invoice Management**: List, retrieve, and void invoices
+- ✅ **Invoice Management**: List, retrieve, void, and create invoices (manual creation for testing)
 - ✅ **Balance Tracking**: Query customer balances
 - ✅ **Dashboard URLs**: Generate embeddable dashboard URLs
 - ✅ **Webhook Verification**: Verify webhook signatures
@@ -73,6 +73,7 @@ The mock can deliver Metronome-style webhooks:
 - POST /v1/usage/ingest
 
 ### Invoices
+- POST /v1/customers/:customer_id/invoices (create invoice for mocking purposes)
 - GET /v1/customers/:customer_id/invoices
 - GET /v1/customers/:customer_id/invoices/:invoice_id
 - POST /v1/invoices/:invoice_id/void
@@ -128,7 +129,28 @@ The mock server does not automatically generate invoices from usage events. In a
 3. Generate invoices at billing period boundaries
 4. Create external invoices in Stripe
 
-Invoices can be hardcoded/faked if needed. 
+The mock provides a basic invoice creation endpoint (`POST /v1/customers/:customer_id/invoices`) that allows you to fake/manually create invoices with line items.
+
+**Request body example:**
+```json
+{
+  "contract_id": "contract_123",
+  "type": "USAGE",
+  "status": "FINALIZED",
+  "line_items": [
+    {
+      "type": "usage",
+      "product_id": "prod_123",
+      "product_name": "API Calls",
+      "amount": 100.50,
+      "is_prorated": false
+    }
+  ],
+  "start_timestamp": "2024-01-01T00:00:00Z",
+  "end_timestamp": "2024-01-31T23:59:59Z",
+  "due_date": "2024-02-15T00:00:00Z"
+}
+``` 
 
 ### Balance Calculation
 
