@@ -1,6 +1,6 @@
 # Mock Metronome Server
 
-A partial emulation of the Metronome billing API that passes internal tests we have at HF, initially created for coding exercises since one can't create a dev Metronome account on their own.
+A partial emulation of the Metronome billing API that passes internal tests we have at HF (for the covered portion), initially created for coding exercises since one can't create a dev Metronome account on their own.
 
 ## Features
 
