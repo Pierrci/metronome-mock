@@ -50,8 +50,6 @@ const verifyHandler: RequestHandler = (req, res) => {
 };
 
 router.post("/verify", verifyHandler);
-/// Support legacy path used earlier in this mock
-router.post("/webhooks/verify", verifyHandler);
 
 router.get("/subscriptions", (_req, res) => {
 	res.json({ data: getWebhookTargets() });

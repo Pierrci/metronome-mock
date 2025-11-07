@@ -8,7 +8,7 @@ import type { Invoice, ErrorResponse } from "../types.js";
 const router = Router();
 
 /// GET /v1/customers/:customer_id/invoices
-router.get("/v1/customers/:customer_id/invoices", (req, res) => {
+router.get("/:customer_id/invoices", (req, res) => {
 	try {
 		const { customer_id } = req.params;
 		const {
@@ -76,7 +76,7 @@ router.get("/v1/customers/:customer_id/invoices", (req, res) => {
 });
 
 /// GET /v1/customers/:customer_id/invoices/:invoice_id
-router.get("/v1/customers/:customer_id/invoices/:invoice_id", (req, res) => {
+router.get("/:customer_id/invoices/:invoice_id", (req, res) => {
 	try {
 		const { customer_id, invoice_id } = req.params;
 
@@ -100,7 +100,7 @@ router.get("/v1/customers/:customer_id/invoices/:invoice_id", (req, res) => {
 });
 
 /// POST /v1/invoices/:invoice_id/void
-router.post("/v1/invoices/:invoice_id/void", (req, res) => {
+router.post("/:invoice_id/void", (req, res) => {
 	try {
 		const { invoice_id } = req.params;
 

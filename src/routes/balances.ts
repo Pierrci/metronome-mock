@@ -9,7 +9,7 @@ const router = Router();
 
 /// GET /v1/contracts/balances
 /// This endpoint returns an async iterator in the real API, but for simplicity we'll return an array
-router.get("/v1/contracts/balances", (req, res) => {
+router.get("/balances", (req, res) => {
 	try {
 		const { customer_id, covering_date } = req.query;
 

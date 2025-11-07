@@ -6,7 +6,7 @@ import type { DashboardEmbeddableURL, ErrorResponse } from "../types.js";
 const router = Router();
 
 /// POST /v1/dashboards/embeddable-url
-router.post("/v1/dashboards/embeddable-url", (req, res) => {
+router.post("/embeddable-url", (req, res) => {
 	try {
 		const { customer_id, dashboard, dashboard_options } = req.body;
 

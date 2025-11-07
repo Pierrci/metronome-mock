@@ -8,7 +8,7 @@ import type { UsageEvent, ErrorResponse } from "../types.js";
 const router = Router();
 
 /// POST /v1/usage/ingest
-router.post("/v1/usage/ingest", (req, res) => {
+router.post("/ingest", (req, res) => {
 	try {
 		const { usage } = req.body;
 
