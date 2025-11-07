@@ -8,7 +8,6 @@ import {
 	parseRFC3339,
 	startOfMonth,
 	addMonths,
-	isEqualDate,
 	startOfHour,
 } from "../utils.js";
 import { setBalanceForProduct } from "./balances.js";

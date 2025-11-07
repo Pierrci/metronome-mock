@@ -2,8 +2,8 @@
 
 import { Router } from "express";
 import { store } from "../store.js";
-import { generateId, formatRFC3339, parseRFC3339, startOfMonth, addMonths } from "../utils.js";
-import type { Invoice, ErrorResponse } from "../types.js";
+import { parseRFC3339 } from "../utils.js";
+import type { ErrorResponse } from "../types.js";
 
 const router = Router();
 
@@ -131,52 +131,6 @@ router.post("/:invoice_id/void", (req, res) => {
 		} satisfies ErrorResponse);
 	}
 });
-
-/// Helper function to create invoices (called internally)
-export function createInvoiceForContract(
-	customerId: string,
-	contractId: string,
-	lineItems: Array<{
-		type: "subscription" | "usage" | "credit";
-		product_id?: string;
-		product_name?: string;
-		amount: number;
-		is_prorated?: boolean;
-	}>,
-	periodStart: Date,
-	periodEnd: Date
-): Invoice {
-	const invoiceId = generateId("inv");
-	const invoice: Invoice = {
-		id: invoiceId,
-		customer_id: customerId,
-		contract_id: contractId,
-		type: "USAGE",
-		status: "FINALIZED",
-		issued_at: formatRFC3339(new Date()),
-		start_timestamp: formatRFC3339(periodStart),
-		end_timestamp: formatRFC3339(periodEnd),
-		total: lineItems.reduce((sum, item) => sum + item.amount, 0),
-		line_items: lineItems.map(item => ({
-			id: generateId("line"),
-			type: item.type,
-			product_id: item.product_id,
-			product_name: item.product_name,
-			amount: item.amount,
-			is_prorated: item.is_prorated,
-		})),
-		external_invoice: {
-			invoice_id: generateId("stripe_inv"),
-			external_status: "FINALIZED",
-		},
-		metadata: {
-			metronome_id: invoiceId,
-		},
-	};
-
-	store.createInvoice(invoice);
-	return invoice;
-}
 
 export default router;
 

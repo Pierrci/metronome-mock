@@ -221,20 +221,3 @@ export async function emitLowBalanceAlert(params: {
 	};
 	await dispatchEvent(event);
 }
-
-export async function emitInvoiceBillingProviderError(params: {
-	customerId:   string;
-	invoiceId:    string;
-	errorMessage: string;
-}): Promise<void> {
-	const event = {
-		id:         generateId("evt"),
-		type:       "invoice.billing_provider_error" as const,
-		properties: {
-			invoice_id:             params.invoiceId,
-			customer_id:            params.customerId,
-			billing_provider_error: params.errorMessage,
-		},
-	};
-	await dispatchEvent(event);
-}
