@@ -1,6 +1,6 @@
 # Metronome Server Mock
 
-![CI](https://github.com/grant/metronome-mock/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/grant/metronome-mock/actions/workflows/ci.yml/badge.svg)](https://github.com/grant/metronome-mock/actions/workflows/ci.yml)
 
 A partial emulation of the Metronome billing API that passes internal tests we have at HF (for the covered portion), initially created for coding exercises since one can't create a dev Metronome account on their own.
 
