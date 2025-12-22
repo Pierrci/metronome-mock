@@ -31,12 +31,12 @@ app.get("/health", (req, res) => {
 
 /// API Routes
 app.use("/v1/customers", customersRouter);
+app.use("/v1/contracts", balancesRouter);
 app.use("/v1/contracts", contractsRouter);
 app.use("/v2/contracts", contractsRouter);
 app.use("/v1/usage", usageRouter);
 app.use("/v1/customers", invoicesRouter); /// Invoices are nested under customers
 app.use("/v1/invoices", invoicesRouter);
-app.use("/v1/contracts", balancesRouter);
 app.use("/v1/dashboards", dashboardsRouter);
 app.use("/webhooks", webhooksRouter);
 
@@ -62,9 +62,13 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 });
 
 /// Start server
-app.listen(PORT, () => {
-	console.log(`🚀 Mock Metronome Server running on http://localhost:${PORT}`);
-	console.log(`📚 API Documentation: See README.md for endpoint details`);
-	console.log(`💡 Health check: http://localhost:${PORT}/health`);
-});
+if (process.env.NODE_ENV !== "test") {
+	app.listen(PORT, () => {
+		console.log(`🚀 Mock Metronome Server running on http://localhost:${PORT}`);
+		console.log(`📚 API Documentation: See README.md for endpoint details`);
+		console.log(`💡 Health check: http://localhost:${PORT}/health`);
+	});
+}
+
+export default app;
 
