@@ -91,6 +91,9 @@ The mock can deliver Metronome-style webhooks:
 - DELETE /webhooks/subscriptions
 - POST /webhooks/dispatch
 
+### Testing
+- POST /reset (Clear all in-memory data)
+
 ## Error Responses
 
 All errors follow this format:

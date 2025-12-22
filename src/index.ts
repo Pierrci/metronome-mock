@@ -10,6 +10,7 @@ import invoicesRouter from "./routes/invoices.js";
 import balancesRouter from "./routes/balances.js";
 import dashboardsRouter from "./routes/dashboards.js";
 import webhooksRouter from "./routes/webhooks.js";
+import { store } from "./store.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,12 @@ app.use((req, res, next) => {
 /// Health check
 app.get("/health", (req, res) => {
 	res.json({ status: "ok", service: "mock-metronome-server" });
+});
+
+/// Reset store (for testing)
+app.post("/reset", (req, res) => {
+	store.reset();
+	res.json({ status: "ok" });
 });
 
 /// API Routes
